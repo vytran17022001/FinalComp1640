@@ -131,6 +131,7 @@ class AdminController {
   update(req, res, next) {
     const id = req.params.id;
     const { role, facultis, closedate } = req.body;
+    console.log(role);
     var obj = {};
     if (role) {
       obj.role = role;
@@ -231,6 +232,7 @@ class AdminController {
   closedateUp(req, res, next) {
     const id = req.params.id;
     const { finalCloseDates, closeDates, academic, faculty } = req.body;
+    console.log(req.body);
 
     var obj = {};
     if (finalCloseDates) {
@@ -314,7 +316,7 @@ class AdminController {
         .populate("academic")
         .populate("faculty");
       const dataAcademicyears = await AcademicYears.find({});
-      const dataFacultis = await Facultis.find({});
+      const dataFacultis = await Facultis.find({}).populate("closeDate");
       const data = await Users.find({})
         .populate("role")
         .populate("facultis")
@@ -752,6 +754,7 @@ class AdminController {
   }
   async registerUser(req, res, next) {
     const { name, email, roleTreatment, facultyWant } = req.body;
+    console.log(name, email, roleTreatment);
     var password = "GreenWich" + Math.floor(Math.random() * 100000);
     try {
       if (!name || !email || !roleTreatment) {
@@ -761,19 +764,14 @@ class AdminController {
       if (checkEmail) {
         return res.status(400).send("Email already exists");
       }
-      var faculytyDone;
-      if (facultyWant) {
-        return (facultyWant = faculytyDone);
-      } else {
-        faculytyDone = null;
-      }
       const hashPassword = await bcrypt.hashSync(password, 10);
       const user = new Users({
         name,
         email,
         password: hashPassword,
         roleTreatment,
-        facultis: faculytyDone,
+        facultis: facultyWant,
+        role: roleTreatment,
       });
       user.save();
 

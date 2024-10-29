@@ -49,6 +49,7 @@ function isMarketing_Coordinator(req, res, next) {
 
 function isStudent(req, res, next) {
   var roleId = res.user.role;
+  console.log("isStudent", roleId);
   Role.findOne({ _id: roleId })
     .then((data) => {
       if (data.name === "Student") {

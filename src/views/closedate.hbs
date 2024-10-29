@@ -75,7 +75,7 @@
               </select>
             </td>
             <td>
-              <button onclick="closedateUp('{{_id}}')" class="btn btn-primary">Edit</button>
+              <button onclick="closedateUpp('{{_id}}')" class="btn btn-primary">Edit</button>
               <button onclick="deleteClose('{{_id}}')" class="btn btn-danger">Delete</button>
             </td>
           </tr>
@@ -263,14 +263,14 @@ function subFa(e,id) {
 
 
 
-function closedateUp(id) {
+function closedateUpp(id) {
   var closedateInput = document.getElementById("closedate_" + id);
   var closeDates= closedateInput ? closedateInput.value : "";
-  var finalCloseDatesInput = document.getElementById("finalCloseDates_" + id);
+  var finalCloseDatesInput = document.getElementById("finalclosedate_" + id);
   var finalCloseDates = finalCloseDatesInput ? finalCloseDatesInput.value : "";
- 
 
-  axios
+ console.log(finalCloseDates.value);
+ axios
     .put(`/admin/closedateUp/${id}`, {finalCloseDates , closeDates})
     .then((data) => {
       console.log(data);
@@ -278,9 +278,9 @@ function closedateUp(id) {
     })
     .catch((error) => {
       return alert("failed");
-    });
+    }); 
+ 
 }
-
 
 
 function deleteClose(id) {

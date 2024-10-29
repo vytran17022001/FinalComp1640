@@ -14,7 +14,7 @@ const CloseDates = require("../models/CloseDates");
 class ArticlesController {
   async index(req, res, next) {
     var users = res.user;
-
+    console.log("davao: " + users);
     try {
       var checkPrime = await Users.findOne({ _id: users._id }).populate({
         path: "facultis",

@@ -14,6 +14,7 @@ const CloseDates = require("../models/CloseDates");
 const AcademicYears = require("../models/AcademicYears");
 const Facultis = require("../models/Facultis");
 const Role = require("../models/Role");
+const { file } = require("googleapis/build/src/apis/file");
 
 class ManagerController {
   index(req, res, next) {
@@ -31,6 +32,7 @@ class ManagerController {
   }
   async downloaded(req, res, next) {
     const idAr = req.params.idAr;
+    console.log(idAr);
     var query = await Articles.findOne({ _id: idAr });
     var fileImg = query.img;
     var fileDoc = query.doc;

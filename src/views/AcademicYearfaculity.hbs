@@ -61,7 +61,7 @@
           <button type="submit" class="btn btn-primary mt-3">Submit</button>
         </form>
         <br>
-        <table class="table" style="color: chocolate;">
+        <table class="table" style="color: chocolate; width:700px">
           <thead class="thead-dark">
             <tr>
               <th scope="col">Faculty</th>
@@ -76,8 +76,8 @@
                   <input type="text" id="nameFaculty_{{this._id}}" name="nameFaculty" value="{{this.nameFaculty}}" />
                 </td>
                 <td>
-                  <select class="form-select" onchange="submitChangeCloseDate(this, '{{_id}}')">
-                    <option value="" disabled selected>Choose one</option>
+                  <select class="form-select" onchange="submitChangeClose(this, '{{_id}}')">
+                    <option value="" disabled selected>{{formatDate this.closeDate.closeDates}} and {{formatDate this.closeDate.finalCloseDates}}</option>
                     {{#each ../dataClose}}
                       <option value="{{_id}}" {{#ifEqual _id ../closedates._id}}selected{{/ifEqual}}>{{formatDate closeDates}} - {{formatDate finalCloseDates}}</option>
                     {{/each}}
@@ -144,7 +144,7 @@
 
  // ChangeCloseDate
 
- function submitChangeCloseDate(e, id) {
+ function submitChangeClose(e, id) {
   const selectCloseDateId = e.value;
   const Id = id;
 
